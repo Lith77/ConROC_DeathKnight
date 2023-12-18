@@ -653,7 +653,7 @@ function ConROC:OptionNone(_spellData, i, j, _spellFrame)
 	lastFrame:Show();
 end
 
-function ConROC:SpellMenuUpdate()
+function ConROC:SpellMenuUpdate(newSpell)
     lastFrame = ConROCScrollChild;
     local anyHLVisible = false;
     scrollHeight = 0;
@@ -906,8 +906,10 @@ function ConROC:SpellMenuUpdate()
         ConROCScrollContainer:Show();
         ConROCScrollChild:Show();
     end
+	if newSpell then
+		ConROC:closeSpellmenu();
+	end
 end
-
 function flashMessage()
 	if HasWandEquipped() then
 		return

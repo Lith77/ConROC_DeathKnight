@@ -131,7 +131,8 @@ local _bloodrunes = 2;
 local _unholyrunes = 2;
 local _frostrunes = 2;
 local _rundeCD = select(2, GetRuneCooldown(1));
-	
+
+function ConROC:UpdateSpellID()
 --Ranks
 	--Blood
 	if IsSpellKnown(Blood_Ability.BloodBoilRank4) then _BloodBoil = Blood_Ability.BloodBoilRank4;
@@ -259,6 +260,8 @@ ids.optionMaxIds = {
 	ScourgeStrike = _ScourgeStrike,
 	SummonGargoyle = _SummonGargoyle
 }
+end
+ConROC:UpdateSpellID()
 
 function ConROC:EnableRotationModule()
 	self.Description = 'DeathKnight';
@@ -276,18 +279,10 @@ end
 
 function ConROC:PLAYER_TALENT_UPDATE()
 	ConROC:SpecUpdate();
-	if ConROCSpellmenuFrame:IsVisible() then
-		ConROCSpellmenuFrame_CloseButton:Hide();
-		ConROCSpellmenuFrame_Title:Hide();
-		ConROCSpellmenuClass:Hide();
-		ConROCSpellmenuFrame_OpenButton:Show();
-		optionsOpened = false;
-		ConROCSpellmenuFrame:SetSize((90) + 14, (15) + 14)
-	else
-		ConROCSpellmenuFrame:SetSize((90) + 14, (15) + 14)
-	end
+    ConROC:closeSpellmenu();
 end
 function ConROC.DeathKnight.Damage(_, timeShift, currentSpell, gcd)
+ConROC:UpdateSpellID()
 --Character
 	local plvl 									= UnitLevel('player');
 	
